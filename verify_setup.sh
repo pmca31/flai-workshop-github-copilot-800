@@ -6,7 +6,9 @@ echo "CODESPACE_NAME: ${CODESPACE_NAME}"
 echo ""
 
 echo "=== Django Configuration ==="
-cd /workspaces/flai-workshop-github-copilot-800/octofit-tracker/backend
+# Get the directory where this script is located and derive the backend path
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${SCRIPT_DIR}/octofit-tracker/backend"
 source venv/bin/activate
 python3 << EOF
 import os

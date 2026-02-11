@@ -8,7 +8,7 @@ echo ""
 echo "=== Django Configuration ==="
 cd /workspaces/flai-workshop-github-copilot-800/octofit-tracker/backend
 source venv/bin/activate
-python << EOF
+python3 << EOF
 import os
 os.environ.setdefault('CODESPACE_NAME', os.getenv('CODESPACE_NAME', 'not-set'))
 from octofit_tracker import settings

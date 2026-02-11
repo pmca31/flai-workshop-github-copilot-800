@@ -1,40 +1,38 @@
 /**
- * API Configuration
+ * API Configuration for OctoFit Tracker
  * 
- * Provides a centralized API base URL configuration with environment-aware fallbacks.
- * 
- * Priority:
- * 1. REACT_APP_API_BASE_URL - explicit API base URL override
- * 2. REACT_APP_CODESPACE_NAME - GitHub Codespaces environment
- * 3. http://localhost:8000 - local development fallback
+ * Provides a single source of truth for the API base URL with automatic
+ * environment detection and fallback to localhost for local development.
  */
 
-const getApiBaseUrl = () => {
-  // Check for explicit API base URL
-  if (process.env.REACT_APP_API_BASE_URL) {
-    return process.env.REACT_APP_API_BASE_URL;
+/**
+ * Get the API base URL based on the environment
+ * @returns {string} The API base URL
+ */
+export const getApiBaseUrl = () => {
+  // Check if REACT_APP_CODESPACE_NAME is set and not empty
+  const codespaceName = process.env.REACT_APP_CODESPACE_NAME;
+  
+  if (codespaceName && codespaceName.trim() !== '') {
+    // Running in GitHub Codespaces
+    return `https://${codespaceName}-8000.app.github.dev`;
   }
   
-  // Check for GitHub Codespaces environment
-  if (process.env.REACT_APP_CODESPACE_NAME) {
-    return `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev`;
-  }
-  
-  // Default to localhost for local development
+  // Fallback to localhost for local development
   return 'http://localhost:8000';
 };
 
-// Note: API_BASE_URL is computed at module load time based on environment variables.
-// In normal React applications, environment variables are set at build time and don't
-// change during runtime, so this is the expected behavior. If you need to reconfigure
-// the API URL at runtime (e.g., in tests), you'll need to reload the module.
-export const API_BASE_URL = getApiBaseUrl();
-
-// Helper function to build API endpoint URLs
+/**
+ * Build a full API URL for a specific endpoint
+ * @param {string} endpoint - The API endpoint path (e.g., '/api/users/')
+ * @returns {string} The full API URL
+ */
 export const getApiUrl = (endpoint) => {
+  const baseUrl = getApiBaseUrl();
   // Ensure endpoint starts with /
-  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  return `${API_BASE_URL}${cleanEndpoint}`;
+  const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  return `${baseUrl}${normalizedEndpoint}`;
 };
 
-export default { API_BASE_URL, getApiUrl };
+// Export the base URL as a constant for convenience
+export const API_BASE_URL = getApiBaseUrl();

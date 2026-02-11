@@ -13,12 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import os
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from octofit_tracker import views
 
 # Create a router and register viewsets
@@ -29,32 +26,7 @@ router.register(r'activities', views.ActivityViewSet)
 router.register(r'leaderboard', views.LeaderboardViewSet)
 router.register(r'workouts', views.WorkoutViewSet)
 
-
-@api_view(['GET'])
-def api_root_codespace(request, format=None):
-    """
-    API root endpoint that returns full URLs for codespace environment.
-    """
-    codespace_name = os.environ.get('CODESPACE_NAME')
-    
-    if codespace_name:
-        # Running in GitHub Codespaces
-        base_url = f'https://{codespace_name}-8000.app.github.dev'
-    else:
-        # Running locally
-        base_url = f'{request.scheme}://{request.get_host()}'
-    
-    return Response({
-        'users': f'{base_url}/api/users/',
-        'teams': f'{base_url}/api/teams/',
-        'activities': f'{base_url}/api/activities/',
-        'leaderboard': f'{base_url}/api/leaderboard/',
-        'workouts': f'{base_url}/api/workouts/',
-    })
-
-
 urlpatterns = [
-    path('', api_root_codespace, name='api-root'),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]

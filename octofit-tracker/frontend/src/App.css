@@ -114,18 +114,22 @@ h2 {
 }
 
 .table thead {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  color: white;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+}
+
+.table thead tr {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
 }
 
 .table thead th {
-  border: none;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+  border: none !important;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.85rem;
   letter-spacing: 1px;
   padding: 1.2rem;
-  color: #fff;
+  color: #fff !important;
 }
 
 .table tbody tr {

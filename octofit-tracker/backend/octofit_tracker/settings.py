@@ -147,35 +147,35 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-    # CORS settings
-    # By default, only allow known frontend origins. To explicitly allow all origins,
-    # set the environment variable CORS_ALLOW_ALL_ORIGINS=true (use only for dev).
-    CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', '').lower() == 'true'
+# CORS settings
+# By default, only allow known frontend origins. To explicitly allow all origins,
+# set the environment variable CORS_ALLOW_ALL_ORIGINS=true (use only for dev).
+CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', '').lower() == 'true'
 
-    CORS_ALLOWED_ORIGINS = [
-        'http://localhost:3000',
-        'http://127.0.0.1:3000',
-    ]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
 
-    if codespace_name:
-        CORS_ALLOWED_ORIGINS.append(f'https://{codespace_name}-3000.app.github.dev')
+if codespace_name:
+    CORS_ALLOWED_ORIGINS.append(f'https://{codespace_name}-3000.app.github.dev')
 
-    CORS_ALLOW_METHODS = [
-        'DELETE',
-        'GET',
-        'OPTIONS',
-        'PATCH',
-        'POST',
-        'PUT',
-    ]
-    CORS_ALLOW_HEADERS = [
-        'accept',
-        'accept-encoding',
-        'authorization',
-        'content-type',
-        'dnt',
-        'origin',
-        'user-agent',
-        'x-csrftoken',
-        'x-requested-with',
-    ]
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]

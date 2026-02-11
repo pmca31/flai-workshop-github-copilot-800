@@ -24,6 +24,10 @@ const getApiBaseUrl = () => {
   return 'http://localhost:8000';
 };
 
+// Note: API_BASE_URL is computed at module load time based on environment variables.
+// In normal React applications, environment variables are set at build time and don't
+// change during runtime, so this is the expected behavior. If you need to reconfigure
+// the API URL at runtime (e.g., in tests), you'll need to reload the module.
 export const API_BASE_URL = getApiBaseUrl();
 
 // Helper function to build API endpoint URLs

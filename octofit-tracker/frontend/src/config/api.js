@@ -1,20 +1,31 @@
 /**
  * API Configuration
- * Provides a centralized way to configure the API base URL
- * with automatic fallback to localhost for local development
+ * 
+ * Provides a centralized API base URL configuration that works in both
+ * local development and GitHub Codespaces environments.
  */
 
+/**
+ * Gets the API base URL based on environment configuration.
+ * 
+ * Priority:
+ * 1. REACT_APP_API_BASE_URL - explicit API URL (e.g., "http://localhost:8000")
+ * 2. REACT_APP_CODESPACE_NAME - Codespaces environment (builds https://{name}-8000.app.github.dev)
+ * 3. Default - falls back to http://localhost:8000
+ * 
+ * @returns {string} The API base URL without trailing slash
+ */
 const getApiBaseUrl = () => {
-  // Check if we have a custom API base URL set
+  // Check for explicit API base URL first
   if (process.env.REACT_APP_API_BASE_URL) {
-    return process.env.REACT_APP_API_BASE_URL;
+    return process.env.REACT_APP_API_BASE_URL.replace(/\/$/, ''); // Remove trailing slash
   }
-
-  // Check if we're in a GitHub Codespace
+  
+  // Check if running in GitHub Codespaces
   if (process.env.REACT_APP_CODESPACE_NAME) {
     return `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev`;
   }
-
+  
   // Default to localhost for local development
   return 'http://localhost:8000';
 };
@@ -22,12 +33,20 @@ const getApiBaseUrl = () => {
 export const API_BASE_URL = getApiBaseUrl();
 
 /**
- * Helper function to build API endpoint URLs
- * @param {string} endpoint - The API endpoint path (e.g., '/api/users/')
- * @returns {string} - The full API URL
+ * Constructs a full API endpoint URL.
+ * 
+ * @param {string} path - The API endpoint path (e.g., "/api/users/")
+ * @returns {string} The complete API URL
  */
-export const getApiUrl = (endpoint) => {
-  // Ensure endpoint starts with /
-  const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  return `${API_BASE_URL}${normalizedEndpoint}`;
+export const getApiUrl = (path) => {
+  // Ensure path starts with /
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${API_BASE_URL}${normalizedPath}`;
 };
+
+const apiConfig = {
+  API_BASE_URL,
+  getApiUrl,
+};
+
+export default apiConfig;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { getApiUrl } from '../config/api';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -10,7 +11,7 @@ const Users = () => {
   const [saveMessage, setSaveMessage] = useState('');
 
   const fetchUsers = useCallback(async () => {
-    const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/users/`;
+    const apiUrl = getApiUrl('/api/users/');
     console.log('Fetching from Users API endpoint:', apiUrl);
     
     try {
@@ -33,7 +34,7 @@ const Users = () => {
   }, []);
 
   const fetchTeams = useCallback(async () => {
-    const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/teams/`;
+    const apiUrl = getApiUrl('/api/teams/');
     console.log('Fetching teams for dropdown:', apiUrl);
     
     try {
@@ -81,7 +82,7 @@ const Users = () => {
   const handleSave = async () => {
     if (!editingUser) return;
 
-    const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/users/${editingUser.id}/`;
+    const apiUrl = getApiUrl(`/api/users/${editingUser.id}/`);
     console.log('Updating user:', apiUrl, formData);
 
     try {

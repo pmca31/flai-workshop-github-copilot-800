@@ -29,6 +29,8 @@ router.register(r'workouts', views.WorkoutViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # API root view - must come before router include to match /api/ exactly
     path('api/', views.api_root, name='api-root'),
+    # Router URLs handle /api/users/, /api/teams/, etc.
     path('api/', include(router.urls)),
 ]

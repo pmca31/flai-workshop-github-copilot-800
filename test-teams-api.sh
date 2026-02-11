@@ -2,7 +2,14 @@
 
 # Test script to check Teams API and member counts
 
-BASE_URL="http://localhost:8000"
+# Detect if running in GitHub Codespaces
+CODESPACE_NAME=${CODESPACE_NAME:-"localhost"}
+
+if [ "$CODESPACE_NAME" != "localhost" ]; then
+    BASE_URL="https://${CODESPACE_NAME}-8000.app.github.dev"
+else
+    BASE_URL="http://localhost:8000"
+fi
 
 echo "🧪 Testing OctoFit Tracker API..."
 echo ""

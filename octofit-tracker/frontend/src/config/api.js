@@ -33,6 +33,3 @@ export const getApiUrl = (endpoint) => {
   const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   return `${API_BASE_URL}${normalizedEndpoint}`;
 };
-
-// Log the configured API base URL for debugging
-console.log('API Base URL configured:', API_BASE_URL);

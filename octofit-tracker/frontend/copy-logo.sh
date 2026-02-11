@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # Copy OctoFit logo for use in the frontend
+# Navigate to script directory to ensure relative paths work correctly
+cd "$(dirname "$0")"
+
 echo "Copying OctoFit logo files..."
 
 # Copy to public directory for favicon

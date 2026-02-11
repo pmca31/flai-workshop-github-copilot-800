@@ -19,7 +19,8 @@ from rest_framework import routers
 from octofit_tracker import views
 
 # Create a router and register viewsets
-router = routers.DefaultRouter()
+# Using SimpleRouter since we have a custom api_root view
+router = routers.SimpleRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'teams', views.TeamViewSet)
 router.register(r'activities', views.ActivityViewSet)
@@ -27,6 +28,7 @@ router.register(r'leaderboard', views.LeaderboardViewSet)
 router.register(r'workouts', views.WorkoutViewSet)
 
 urlpatterns = [
-    path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('api/', views.api_root, name='api-root'),
+    path('api/', include(router.urls)),
 ]

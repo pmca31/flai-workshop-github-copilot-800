@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiUrl } from '../config/api';
 
 const Workouts = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -7,7 +8,7 @@ const Workouts = () => {
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/workouts/`;
+      const apiUrl = getApiUrl('/api/workouts/');
       console.log('Fetching from Workouts API endpoint:', apiUrl);
       
       try {

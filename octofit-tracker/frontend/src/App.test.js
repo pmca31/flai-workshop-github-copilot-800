@@ -9,6 +9,7 @@ test('renders OctoFit Tracker welcome heading', () => {
 
 test('renders OctoFit Tracker navbar', () => {
   render(<App />);
-  const navbarElements = screen.getAllByText(/OctoFit Tracker/i);
-  expect(navbarElements.length).toBeGreaterThan(0);
+  const navbar = screen.getByRole('navigation');
+  expect(navbar).toBeInTheDocument();
+  expect(navbar).toHaveTextContent('OctoFit Tracker');
 });

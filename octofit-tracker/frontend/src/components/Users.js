@@ -9,10 +9,8 @@ const Users = () => {
   const [formData, setFormData] = useState({ name: '', email: '', team: '' });
   const [saveMessage, setSaveMessage] = useState('');
 
-  const baseUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api`;
-
   const fetchUsers = useCallback(async () => {
-    const apiUrl = `${baseUrl}/users/`;
+    const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/users/`;
     console.log('Fetching from Users API endpoint:', apiUrl);
     
     try {
@@ -32,10 +30,10 @@ const Users = () => {
       setError(err.message);
       setLoading(false);
     }
-  }, [baseUrl]);
+  }, []);
 
   const fetchTeams = useCallback(async () => {
-    const apiUrl = `${baseUrl}/teams/`;
+    const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/teams/`;
     console.log('Fetching teams for dropdown:', apiUrl);
     
     try {
@@ -49,7 +47,7 @@ const Users = () => {
     } catch (err) {
       console.error('Error fetching teams:', err);
     }
-  }, [baseUrl]);
+  }, []);
 
   useEffect(() => {
     fetchUsers();
@@ -83,7 +81,7 @@ const Users = () => {
   const handleSave = async () => {
     if (!editingUser) return;
 
-    const apiUrl = `${baseUrl}/users/${editingUser.id}/`;
+    const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/users/${editingUser.id}/`;
     console.log('Updating user:', apiUrl, formData);
 
     try {
